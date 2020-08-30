@@ -1,3 +1,4 @@
+
 CREATE DATABASE IF NOT EXISTS `final_OYM` ;
 
 USE `final_OYM` ;
@@ -45,6 +46,36 @@ CREATE TABLE IF NOT EXISTS `final_OYM`.`usuarios` (
   PRIMARY KEY (`idAdmin`),
   FOREIGN KEY (`fk_idLogin`)
     REFERENCES `final_OYM`.`Login` (`idLogin`),
+  FOREIGN KEY (`fk_idWorker`)
+    REFERENCES `final_OYM`.`Trabajadores` (`idWorker`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `final_OYM`.`Clientes` (
+  `idClientes` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL,
+  `apellido` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `telefono` VARCHAR(45) NULL,
+  `fk_idAdmin` INT NOT NULL,
+  PRIMARY KEY (`idClientes`),
+    FOREIGN KEY (`fk_idAdmin`)
+    REFERENCES `final_OYM`.`usuarios` (`idAdmin`)
+ );
+
+
+CREATE TABLE IF NOT EXISTS `final_OYM`.`Proyectos` (
+  `idProyectos` INT NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(45) NULL,
+  `descripcion` TEXT(500) NULL,
+  `fecha_inicio` VARCHAR(45) NULL,
+  `fecha_entrega` VARCHAR(45) NULL,
+  `precio` INT NULL,
+  `fk_idClientes` INT NOT NULL,
+  `fk_idWorker` INT NOT NULL,
+  PRIMARY KEY (`idProyectos`),
+  FOREIGN KEY (`fk_idClientes`)
+    REFERENCES `final_OYM`.`Clientes` (`idClientes`),
   FOREIGN KEY (`fk_idWorker`)
     REFERENCES `final_OYM`.`Trabajadores` (`idWorker`)
 );
